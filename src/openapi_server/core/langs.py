@@ -13,11 +13,11 @@ logger = getLogger(__name__)
 
 
 async def send_message(messages):
-    print(messages)
+    print(f"send_message => {messages}")
     prompt = ChatPromptTemplate(messages=messages)
     llm = ChatOpenAI(
         model="gpt-4o-mini",
-        base_url="http://192.168.11.80:8080/v1",
+        # base_url="http://localhost:8080/v1",
         max_completion_tokens=2048,
         logprobs=False,
         n=1,
