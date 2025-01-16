@@ -11,10 +11,13 @@ from openapi_server.models.create_chat_completion.create_chat_completion_request
 
 logger = getLogger(__name__)
 
-
+# メッセージを送信する非同期関数
 async def send_message(messages):
     print(f"send_message => {messages}")
-    prompt = ChatPromptTemplate(messages=messages)
+    promptMessage = """
+    {code}
+    """
+    prompt = ChatPromptTemplate(promptMessage, input_variable="code")
     llm = ChatOpenAI(
         model="gpt-4o-mini",
         # base_url="http://localhost:8080/v1",
@@ -26,7 +29,7 @@ async def send_message(messages):
         temperature=1,
     )
     chain = prompt | llm
-    res = chain.astream({})
+    res = chain.astream({"code": messages})
     async for msg in res:
         yield msg.content
 
