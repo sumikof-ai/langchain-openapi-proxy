@@ -24,7 +24,12 @@ from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, field_v
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from openapi_server.models.chat_completion.chat_completion_functions import ChatCompletionFunctions
+from openapi_server.models.chat_completion.chat_completion_request_assistant_message import ChatCompletionRequestAssistantMessage
+from openapi_server.models.chat_completion.chat_completion_request_function_message import ChatCompletionRequestFunctionMessage
 from openapi_server.models.chat_completion.chat_completion_request_message import ChatCompletionRequestMessage
+from openapi_server.models.chat_completion.chat_completion_request_system_message import ChatCompletionRequestSystemMessage
+from openapi_server.models.chat_completion.chat_completion_request_tool_message import ChatCompletionRequestToolMessage
+from openapi_server.models.chat_completion.chat_completion_request_user_message import ChatCompletionRequestUserMessage
 from openapi_server.models.chat_completion.chat_completion_stream_options import ChatCompletionStreamOptions
 from openapi_server.models.chat_completion.chat_completion_tool import ChatCompletionTool
 from openapi_server.models.chat_completion.chat_completion_tool_choice_option import ChatCompletionToolChoiceOption
@@ -43,6 +48,7 @@ class CreateChatCompletionRequest(BaseModel):
     """
     CreateChatCompletionRequest
     """ # noqa: E501
+    # messages: Annotated[List[Union[ChatCompletionRequestAssistantMessage, ChatCompletionRequestFunctionMessage, ChatCompletionRequestSystemMessage, ChatCompletionRequestToolMessage, ChatCompletionRequestUserMessage]], Field(min_length=1)] = Field(description="A list of messages comprising the conversation so far. Depending on the [model](/docs/models) you use, different message types (modalities) are supported, like [text](/docs/guides/text-generation), [images](/docs/guides/vision), and [audio](/docs/guides/audio). ")  # noqa: F821
     messages: Annotated[List[ChatCompletionRequestMessage], Field(min_length=1)] = Field(description="A list of messages comprising the conversation so far. Depending on the [model](/docs/models) you use, different message types (modalities) are supported, like [text](/docs/guides/text-generation), [images](/docs/guides/vision), and [audio](/docs/guides/audio). ")
     # model: CreateChatCompletionRequestModel
     model: StrictStr

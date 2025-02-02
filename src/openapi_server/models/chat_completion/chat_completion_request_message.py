@@ -27,12 +27,12 @@ from openapi_server.models.chat_completion.chat_completion_request_tool_message 
 from openapi_server.models.chat_completion.chat_completion_request_user_message import ChatCompletionRequestUserMessage
 from typing import Union, List, Optional, Dict
 from typing_extensions import Literal
-
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
-
+from logging import getLogger
+logger = getLogger(__name__)
 CHATCOMPLETIONREQUESTMESSAGE_ONE_OF_SCHEMAS = ["ChatCompletionRequestAssistantMessage", "ChatCompletionRequestFunctionMessage", "ChatCompletionRequestSystemMessage", "ChatCompletionRequestToolMessage", "ChatCompletionRequestUserMessage"]
 
 class ChatCompletionRequestMessage(BaseModel):
@@ -68,6 +68,7 @@ class ChatCompletionRequestMessage(BaseModel):
         else:
             super().__init__(**kwargs)
             tempinstance = self.from_dict(kwargs)
+            logger.debug(tempinstance.to_dict())
             self.actual_instance = tempinstance.actual_instance
 
     @field_validator('actual_instance')

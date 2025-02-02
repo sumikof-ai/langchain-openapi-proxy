@@ -23,7 +23,6 @@ from fastapi import (  # noqa: F401
     status,
 )
 
-from openapi_server.models.create_chat_completion.create_chat_completion_stream_response import CreateChatCompletionStreamResponse
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.models.create_chat_completion.create_chat_completion_request import CreateChatCompletionRequest
 from openapi_server.models.create_chat_completion.create_chat_completion_response import CreateChatCompletionResponse

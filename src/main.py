@@ -24,6 +24,9 @@ from openapi_server.apis.uploads_api import router as UploadsApiRouter
 from openapi_server.apis.users_api import router as UsersApiRouter
 from openapi_server.apis.vector_stores_api import router as VectorStoresApiRouter
 
+from dotenv import load_dotenv
+load_dotenv()
+
 app = FastAPI(
     title="OpenAI API",
     description="The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
@@ -72,4 +75,5 @@ if __name__ == "__main__":
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
         datefmt="[%X]",
     )
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    print(f'setting loglebel = {logging.DEBUG}')
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="debug")
