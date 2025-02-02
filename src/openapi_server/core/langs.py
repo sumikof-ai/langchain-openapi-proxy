@@ -14,10 +14,10 @@ logger = getLogger(__name__)
 
 async def send_message(messages):
     print(f"send_message => {messages}")
-    prompt = ChatPromptTemplate(messages=messages)
+    prompt = ChatPromptTemplate(messages=messages,template_format='jinja2')
     llm = ChatOpenAI(
         model="gpt-4o-mini",
-        # base_url="http://localhost:8080/v1",
+        base_url="http://localhost:8080/v1",
         max_completion_tokens=2048,
         logprobs=False,
         n=1,
@@ -25,6 +25,7 @@ async def send_message(messages):
         presence_penalty=0,
         temperature=1,
     )
+    llm
     chain = prompt | llm
     res = chain.astream({})
     async for msg in res:
