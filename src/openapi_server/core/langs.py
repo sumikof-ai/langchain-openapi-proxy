@@ -11,7 +11,7 @@ from openapi_server.models.create_chat_completion.create_chat_completion_request
 
 logger = getLogger(__name__)
 
-
+# メッセージを送信する非同期関数
 async def send_message(messages):
     print(f"send_message => {messages}")
     prompt = ChatPromptTemplate(messages=messages,template_format='jinja2')
@@ -27,7 +27,7 @@ async def send_message(messages):
     )
     llm
     chain = prompt | llm
-    res = chain.astream({})
+    res = chain.astream({"code": messages})
     async for msg in res:
         yield msg.content
 
